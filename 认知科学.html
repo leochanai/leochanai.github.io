@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>认知科学概述 | LEOCHAN</title>
+    <!-- TailwindCSS 通过 CDN 引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 定制 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        
+        /* 页面过渡效果 */
+        .section-transition {
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 font-sans transition-colors duration-300">
+    
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center font-semibold text-lg text-primary-600 dark:text-primary-400">
+                        <i class="fas fa-brain mr-2"></i>
+                        <span>认知科学概述</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none">
+                        <i id="theme-toggle-icon" class="fas fa-moon text-gray-600 dark:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- 介绍部分 -->
+        <section class="mb-16 animate-fade-in section-transition">
+            <h1 class="text-4xl sm:text-5xl font-bold mb-6 text-gray-900 dark:text-white">认知科学概述</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl">
+                最新的认知科学（Cognitive Science）研究表明，人脑拥有<strong>惊人的可塑性</strong>，通过科学的方法训练，成年人依然可以显著提升记忆、专注力、批判性思维等认知能力。
+            </p>
+        </section>
+
+        <!-- 记忆部分 -->
+        <section id="memory" class="mb-16 section-transition">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-memory text-2xl text-primary-500 mr-3"></i>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">记忆</h2>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 card-hover">
+                <p class="mb-4">
+                    <strong>记忆</strong>是学习的基础，掌控记忆过程能够极大提高学习效率。认知科学对记忆的研究涵盖了从感官记忆、短期记忆（工作记忆）到长期记忆的全过程，揭示了如何更有效地将信息编码、储存并提取。
+                </p>
+            </div>
+            
+            <!-- 记忆卡片部分 -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 遗忘曲线与间隔效应 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-chart-line text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">遗忘曲线与间隔效应</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        德国心理学家艾宾浩斯早在19世纪就提出"遗忘曲线"，描述了记忆随时间递减的规律。然而，研究也发现通过适当的复习间隔可以极大地减缓遗忘，这被称为<strong>间隔效应（spacing effect）</strong>。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">要点</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            通过把学习内容拆分到多次复习，并随着熟练度提高逐渐拉大复习间隔，我们可以击败遗忘曲线，使记忆更持久。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 提取练习 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-sync-alt text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">提取练习</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        大量认知心理学研究表明，主动从记忆中<strong>提取</strong>信息（例如通过自测或回忆）比被动重复阅读更能巩固记忆。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">要点</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            学习中应尽量自我测验、回忆所学，比如合上书本复述知识点、做闪卡测验等，而非仅反复阅读笔记。在每次成功回忆时，大脑会强化相关神经连接，从而提高记忆保留率。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 意向记忆与精细加工 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-link text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">意向记忆与精细加工</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        简单重复不如<strong>精细加工（elaboration）</strong>有效。精细加工是指将新知识与已有知识建立联系、用自己的语言重新表述、举例说明等方法，使记忆痕迹更加丰富。这符合"水平处理理论"，即信息处理得越深，记忆越牢固。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">要点</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            在学习过程中，不妨假装自己需要将内容教给他人——写教学笔记或给虚拟听众讲解。这种方法能暴露知识漏洞，促使更深入的理解和记忆。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 组块化 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-cubes text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">组块化</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        我们的工作记忆容量有限，一般同时只能处理约7±2个信息单位。<strong>组块化（Chunking）</strong>技术通过将零散的信息组合成更大的单元，从而提高短期记忆的效率。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">要点</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            练习在学习时主动寻求模式，把知识结构化。使用思维导图或笔记大纲来组织信息也是实现组块化的有效手段。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 记忆模型可视化 -->
+            <div class="mt-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-4">记忆加工过程可视化</h3>
+                <div class="flex justify-center">
+                    <div class="w-full max-w-3xl">
+                        <svg viewBox="0 0 800 200" class="w-full">
+                            <!-- 背景线 -->
+                            <line x1="50" y1="100" x2="750" y2="100" stroke="#d1d5db" stroke-width="2" stroke-dasharray="5,5" class="dark:stroke-gray-600" />
+                            
+                            <!-- 节点和连接 -->
+                            <circle cx="100" cy="100" r="40" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="100" y="105" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">感官记忆</text>
+                            
+                            <line x1="140" y1="100" x2="230" y2="100" stroke="#0ea5e9" stroke-width="3" marker-end="url(#arrowhead)" class="dark:stroke-primary-500" />
+                            
+                            <circle cx="270" cy="100" r="40" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="270" y="105" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">短期记忆</text>
+                            
+                            <line x1="310" y1="100" x2="400" y2="100" stroke="#0ea5e9" stroke-width="3" marker-end="url(#arrowhead)" class="dark:stroke-primary-500" />
+                            
+                            <circle cx="440" cy="100" r="40" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="440" y="105" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">工作记忆</text>
+                            
+                            <line x1="480" y1="100" x2="570" y2="100" stroke="#0ea5e9" stroke-width="3" marker-end="url(#arrowhead)" class="dark:stroke-primary-500" />
+                            
+                            <circle cx="610" cy="100" r="40" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="610" y="105" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">长期记忆</text>
+                            
+                            <line x1="440" y1="60" x2="440" y2="30" stroke="#0ea5e9" stroke-width="2" class="dark:stroke-primary-500" />
+                            <line x1="440" y1="30" x2="610" y2="30" stroke="#0ea5e9" stroke-width="2" class="dark:stroke-primary-500" />
+                            <line x1="610" y1="30" x2="610" y2="60" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrowhead)" class="dark:stroke-primary-500" />
+                            
+                            <text x="525" y="25" text-anchor="middle" class="text-xs fill-gray-600 dark:fill-gray-400">提取练习</text>
+                            
+                            <!-- 箭头定义 -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#0ea5e9" class="dark:fill-primary-500" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 text-center mt-4">
+                    记忆加工流程：信息从感官进入短期记忆，然后经过工作记忆的深度处理后转入长期记忆，提取练习强化这一过程
+                </p>
+            </div>
+        </section>
+
+        <!-- 专注力部分 -->
+        <section id="focus" class="mb-16 section-transition">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-bullseye text-2xl text-primary-500 mr-3"></i>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">专注力</h2>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 card-hover">
+                <p class="mb-4">
+                    <strong>专注力</strong>是保证高效学习和工作的必要前提。
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 单任务与多任务 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tasks text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">单任务与多任务</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        大脑并非擅长同时处理多重任务。美国心理学会的报告指出，人脑并不适合繁重的多任务处理，当试图同时做多件事时，会产生显著的"切换代价"。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">启示</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            要提升专注力，应尽量避免同时处理多项任务。相反，采用<strong>单任务</strong>模式，专注于一件事一段时间，再切换到下一件。训练中需要有意识地限制干扰源，例如关闭不必要的通知，在学习时只打开与任务相关的窗口。这将培养大脑的专注肌肉，让注意力不被无关信息劫持。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 注意力监控与冥想 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-spa text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">注意力监控与冥想</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        <strong>正念冥想（mindfulness meditation）</strong>被大量研究证明可以提高专注力和认知控制能力。宾夕法尼亚大学的研究显示，即使是每天30分钟、持续8周的正念训练，也能在数周内提升注意力的集中和任务完成的表现。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">启示</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            将正念冥想纳入日常，可以有效增强专注力。本方案建议用户每日进行一定时间的静心冥想（初期5-10分钟逐步增加到20分钟），通过关注呼吸或身体感觉训练大脑的"注意力肌肉"。研究表明，这种练习可"重新连接大脑，使得日常生活中的注意更集中"。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 刻意训练注意力 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-dumbbell text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">刻意训练注意力</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        除了冥想，认知心理学家还提出了一些直接训练注意力的方法。哈佛医学院的专家乐文特（Kim Willment）建议了一个简单的<strong>注意力训练练习</strong>：选择一篇文章或书，设定一个30分钟计时器，但每5分钟提示一次。当提示响起时，检视自己是否走神，如果是，则重新将注意力拉回当下阅读。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">启示</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            在日常学习中，可以刻意安排这样单一任务的注意力训练。例如，每天挑选一段固定时间（如25分钟Pomodoro工作法时段）只做一件事情，中途不因思绪飘逸而分心；如果发现走神，就温和地把注意拉回来。这种"走神-觉察-重聚焦"的循环过程会逐渐加强大脑的专注与自控能力。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 环境与习惯优化 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-leaf text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">环境与习惯优化</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        良好的专注力离不开对学习环境和生活习惯的优化。<strong>信息超载（Information overload）</strong>会增加大脑筛选信息的负担，让分心更容易发生。创造安静、整洁、无干扰的学习环境非常重要。
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mt-2">
+                        哈佛健康出版物指出，<strong>规律运动与充足睡眠</strong>可以提高注意力，因为运动增加大脑中促进新神经连接的化学物质、降低压力、并改善睡眠质量；而睡眠过程中，大脑会清除有害蛋白并巩固记忆，有助于第二天更专注。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">启示</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            用户应确保每晚7-8小时高质量睡眠，并每周进行数次中等强度有氧运动（如跑步、游泳）。这些习惯将为大脑提供良好的生理基础，使训练效果最大化。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专注力提升技术图表 -->
+            <div class="mt-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-4">专注力提升策略对比</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">策略</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">时间投入</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">效果显现速度</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">科学支持强度</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">容易坚持程度</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">单任务工作</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">低</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">快</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">高</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">正念冥想</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">高</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">低</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Pomodoro工作法</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">低</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">快</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">高</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">规律睡眠</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">高</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">高</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">定期有氧运动</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">高</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">中</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 批判性思维部分 -->
+        <section id="critical-thinking" class="mb-16 section-transition">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-brain text-2xl text-primary-500 mr-3"></i>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">批判性思维</h2>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 card-hover">
+                <p class="mb-4">
+                    <strong>批判性思维</strong>是一种高级认知能力，指能够<strong>理性地分析、评价信息和问题，从而做出明智判断</strong>的能力。
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 深入提问与求异思维 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-question-circle text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">深入提问与求异思维</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        批判性思维的核心在于不盲从表面结论，而是追问<strong>为什么</strong>和<strong>怎样</strong>。这需要一种求异思维，即主动寻找不同观点、假设其他可能性。
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mt-2">
+                        阅读立场不同的文章或书籍，尝试站在对立面重新审视问题；在团队讨论中鼓励"魔鬼辩护"（故意提出反对意见来检验想法的稳健性）。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">实践</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            例如，当学习一种新的技术架构时，不仅要看它的优点宣传，也要查找它可能存在的缺陷或替代方案，从不同角度评估其适用性。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 写作与思考清晰度 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-pen-fancy text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">写作与思考清晰度</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        写作是提升批判性思维的传统且强有力的工具。心理学家指出，<strong>写作能够促进清晰的思考</strong>，因为要把思想付诸文字，需要逻辑组织和深度理解。
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mt-2">
+                        写作还涉及<strong>论证（Argumentation）</strong>：为了使文章有说服力，你必须预见反驳、提供证据支持论点，并修正自己的逻辑。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">实践</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            建议程序员每周抽时间写一点东西。这可以是技术博客（如分析一种算法的优缺点）、学习笔记（总结某个课程并评估其要点），或问题反思（日记形式记录一个工作难题是如何解决的，过程中有哪些决策点）。写作不要求文学性，重在逻辑清晰、有据可依。每篇写完后可放置一两天再回头<strong>编辑和修改</strong>——这种<strong>自我编辑</strong>本身也是批判性思维的训练，需要站在读者角度挑错改进。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 解谜与逻辑游戏 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-puzzle-piece text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">解谜与逻辑游戏</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        大脑喜欢<strong>解谜</strong>，而解决未定义的问题正是批判性思维的绝佳练习。认知训练中常用一些策略游戏、逻辑谜题、推理游戏来提升思维的敏锐度和灵活性。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">实践</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            训练计划中可以包含每周解答一定数量的逻辑/算法题，或组队参与脑力游戏（比如公司内部的编程挑战、线上谜题比赛等）。在解题过程中，要习惯<strong>反思</strong>：为什么某种解法可行或不可行？有无更简洁的方法？这种反思正是批判性思维的培养。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 元认知训练 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-sitemap text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">元认知训练</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        批判性思维与<strong>元认知（Metacognition）</strong>密不可分。元认知是对自己思维过程的认知，简单说就是"思考你的思考"。善用元认知的人会经常评估自己的理解程度、辨识自己推理中的偏见或漏洞，并主动调整思路。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">实践</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            可以在学习和工作中建立一些自我提问的习惯。例如，在看完一篇技术文章后问自己："作者的核心论点是什么？证据充分吗？有没有我不同意的地方，为什么？"；在完成一段代码实现后问："还有更优雅或高效的实现吗？有没有考虑所有边界情况？"通过不断自问自答，逼近更理性的思考过程。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 开放心态与持续学习 -->
+            <div class="mt-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm card-hover">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-seedling text-xl text-primary-500 mr-2"></i>
+                    <h3 class="text-xl font-semibold">开放心态与持续学习</h3>
+                </div>
+                <p class="text-gray-700 dark:text-gray-300">
+                    著名心理学家卡罗尔·德韦克（Carol Dweck）的<strong>成长型心态（Growth Mindset）</strong>理论虽然通常用于激励学习者相信能力可变，但对于批判性思维也有启发意义。如果一个人坚信自己的看法和能力是一成不变的，他们更可能拒绝新信息，陷入"固化思维"；相反，保持开放和成长的心态，承认自己可能出错、还有提升空间，才会更乐于接纳新的见解并批判性地审视自我。这种谦逊和求知的态度实则是批判性思维的沃土。
+                </p>
+                <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">实践</h4>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        在小组讨论或代码审查时，鼓励自己欢迎他人提出不同意见。将错误视为学习机会而非对自身能力的否定。长期来看，这种开放心态会让你不断优化思维模式。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 批判性思维流程图 -->
+            <div class="mt-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-4">批判性思维过程</h3>
+                <div class="flex justify-center">
+                    <div class="w-full max-w-3xl">
+                        <svg viewBox="0 0 800 280" class="w-full">
+                            <!-- 背景 -->
+                            <rect x="50" y="30" width="700" height="220" rx="10" fill="#f3f4f6" class="dark:fill-gray-700" />
+                            
+                            <!-- 步骤框和连接 -->
+                            <rect x="100" y="60" width="120" height="60" rx="5" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="160" y="95" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">识别问题</text>
+                            
+                            <line x1="220" y1="90" x2="270" y2="90" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrowhead2)" class="dark:stroke-primary-500" />
+                            
+                            <rect x="280" y="60" width="120" height="60" rx="5" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="340" y="95" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">收集信息</text>
+                            
+                            <line x1="400" y1="90" x2="450" y2="90" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrowhead2)" class="dark:stroke-primary-500" />
+                            
+                            <rect x="460" y="60" width="120" height="60" rx="5" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="520" y="95" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">分析评估</text>
+                            
+                            <line x1="520" y1="120" x2="520" y2="150" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrowhead2)" class="dark:stroke-primary-500" />
+                            
+                            <rect x="460" y="160" width="120" height="60" rx="5" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="520" y="195" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">得出结论</text>
+                            
+                            <line x1="460" y1="190" x2="410" y2="190" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrowhead2)" class="dark:stroke-primary-500" />
+                            
+                            <rect x="280" y="160" width="120" height="60" rx="5" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="340" y="195" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">应用决策</text>
+                            
+                            <line x1="280" y1="190" x2="230" y2="190" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrowhead2)" class="dark:stroke-primary-500" />
+                            
+                            <rect x="100" y="160" width="120" height="60" rx="5" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="160" y="195" text-anchor="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">反思调整</text>
+                            
+                            <path d="M 100,190 C 80,190 80,90 100,90" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrowhead2)" fill="none" class="dark:stroke-primary-500" />
+                            
+                            <!-- 箭头定义 -->
+                            <defs>
+                                <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#0ea5e9" class="dark:fill-primary-500" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 text-center mt-4">
+                    批判性思维是一个循环过程，包括识别问题、收集信息、分析评估、得出结论、应用决策和反思调整
+                </p>
+            </div>
+        </section>
+
+        <!-- 神经可塑性部分 -->
+        <section id="neuroplasticity" class="mb-16 section-transition">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-network-wired text-2xl text-primary-500 mr-3"></i>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">神经可塑性</h2>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 card-hover">
+                <p class="mb-4">
+                    <strong>神经可塑性</strong>指大脑根据经验和训练<strong>改变自身结构和功能连接</strong>的能力。通俗来说，大脑就像肌肉一样，用进废退：经常使用某些神经通路会使其强化，反之则会削弱。
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 终身可塑性 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-hourglass-half text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">终身可塑性</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        哈佛医学院指出，"你的大脑具备在你年老时依然学习和成长的能力——这就是脑可塑性，但前提是你必须经常训练它"。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">启示</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            35岁仍是大脑保持高度可塑性的阶段。培养学习能力，需要抱持"终身学习"的信念，不断给大脑提供新鲜的输入和练习机会。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 多样化训练 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-random text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">多样化训练</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        大脑可塑性强调<strong>多样性</strong>的重要性——不同类型的活动会刺激大脑不同区域，形成更全面的锻炼。研究发现，"通过参与多样的活动，可以显著提升神经可塑性和认知功能"。
+                    </p>
+                    <ul class="mt-2 space-y-2 text-gray-700 dark:text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-running mt-1 mr-2 text-primary-500"></i>
+                            <span><strong>身体运动</strong>能增加大脑血流和促进神经营养因子（如BDNF）的释放，有助于生长新神经连接</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-paint-brush mt-1 mr-2 text-primary-500"></i>
+                            <span><strong>创意活动</strong>（绘画、写作、学乐器、跳舞等）会激活大脑的不同部分，鼓励新的神经连接形成</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users mt-1 mr-2 text-primary-500"></i>
+                            <span><strong>社交互动</strong>亦是神经可塑性的推动者：与他人交谈、协作时，大脑需要快速反应、理解情绪和观点，这挑战了大脑的多个网络，有助于加强整体认知功能</span>
+                        </li>
+                    </ul>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">启示</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            对于程序员来说，不要把提升学习能力仅局限在编程领域。应适当走出舒适区，尝试一些新的、有挑战性的活动，比如每周学一点乐器、绘制思维导图，或参与技术社区的讨论分享。这些"跨域"挑战会让大脑形成更多元的连接，反过来提高学习新技术时的适应力和创造力。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 生理支持 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 card-hover md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-heartbeat text-xl text-primary-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">生理支持：营养与休息</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        大脑的可塑变化需要物质基础，如蛋白质合成、突触生长等。因此，<strong>营养</strong>和<strong>休息</strong>至关重要。均衡饮食（尤其是富含Omega-3脂肪酸、维生素B、抗氧化物的食物）有益于大脑健康。<strong>睡眠</strong>则被称为记忆巩固和脑重塑的必要条件——睡眠中，大脑会对白天获得的信息进行重新激活和整合，将短期记忆固化为长期记忆，并清除代谢废物。
+                    </p>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-600 dark:text-primary-400 mb-2">启示</h4>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            将规律作息和健康饮食视为训练计划的一部分，而非可有可无的背景因素。在半年训练期间，严格避免长期熬夜或过度饮酒等损害可塑性的行为。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 神经可塑性图表 -->
+            <div class="mt-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-4">影响神经可塑性的因素</h3>
+                <div class="flex justify-center">
+                    <div class="w-full max-w-3xl">
+                        <svg viewBox="0 0 500 320" class="w-full">
+                            <!-- 中心圆 -->
+                            <circle cx="250" cy="160" r="60" fill="#bae6fd" class="dark:fill-primary-800" />
+                            <text x="250" y="160" text-anchor="middle" dominant-baseline="middle" class="text-base font-bold fill-gray-800 dark:fill-white">神经可塑性</text>
+                            
+                            <!-- 围绕的元素 -->
+                            <g>
+                                <!-- 睡眠 -->
+                                <circle cx="130" cy="90" r="40" fill="#c4b5fd" class="dark:fill-purple-800" />
+                                <text x="130" y="90" text-anchor="middle" dominant-baseline="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">充足睡眠</text>
+                                <line x1="178" y1="115" x2="202" y2="129" stroke="#9ca3af" stroke-width="2" class="dark:stroke-gray-500" />
+                            </g>
+                            
+                            <g>
+                                <!-- 饮食 -->
+                                <circle cx="130" cy="230" r="40" fill="#fbcfe8" class="dark:fill-pink-800" />
+                                <text x="130" y="230" text-anchor="middle" dominant-baseline="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">健康饮食</text>
+                                <line x1="178" y1="205" x2="202" y2="191" stroke="#9ca3af" stroke-width="2" class="dark:stroke-gray-500" />
+                            </g>
+                            
+                            <g>
+                                <!-- 运动 -->
+                                <circle cx="250" cy="40" r="40" fill="#a5f3fc" class="dark:fill-cyan-800" />
+                                <text x="250" y="40" text-anchor="middle" dominant-baseline="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">规律运动</text>
+                                <line x1="250" y1="80" x2="250" y2="100" stroke="#9ca3af" stroke-width="2" class="dark:stroke-gray-500" />
+                            </g>
+                            
+                            <g>
+                                <!-- 学习 -->
+                                <circle cx="370" cy="90" r="40" fill="#bbf7d0" class="dark:fill-green-800" />
+                                <text x="370" y="90" text-anchor="middle" dominant-baseline="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">持续学习</text>
+                                <line x1="322" y1="115" x2="297" y2="129" stroke="#9ca3af" stroke-width="2" class="dark:stroke-gray-500" />
+                            </g>
+                            
+                            <g>
+                                <!-- 社交 -->
+                                <circle cx="370" cy="230" r="40" fill="#fde68a" class="dark:fill-amber-800" />
+                                <text x="370" y="230" text-anchor="middle" dominant-baseline="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">社交互动</text>
+                                <line x1="322" y1="205" x2="297" y2="191" stroke="#9ca3af" stroke-width="2" class="dark:stroke-gray-500" />
+                            </g>
+                            
+                            <g>
+                                <!-- 挑战 -->
+                                <circle cx="250" cy="280" r="40" fill="#fdba74" class="dark:fill-orange-800" />
+                                <text x="250" y="280" text-anchor="middle" dominant-baseline="middle" class="text-sm font-medium fill-gray-800 dark:fill-white">新奇挑战</text>
+                                <line x1="250" y1="240" x2="250" y2="220" stroke="#9ca3af" stroke-width="2" class="dark:stroke-gray-500" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 text-center mt-4">
+                    多种因素共同影响神经可塑性，包括生理、心理和行为方面的因素
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">关于作者</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        本文由 LEOCHAN 整理和创作，旨在分享最新认知科学研究成果，帮助读者理解并提升自己的认知能力。
+                    </p>
+                    <div class="flex space-x-4 text-gray-500 dark:text-gray-400">
+                        <a href="https://x.com/leochanai" target="_blank" rel="noopener noreferrer" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">快速导航</h3>
+                    <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                        <li>
+                            <a href="#memory" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">记忆</a>
+                        </li>
+                        <li>
+                            <a href="#focus" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">专注力</a>
+                        </li>
+                        <li>
+                            <a href="#critical-thinking" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">批判性思维</a>
+                        </li>
+                        <li>
+                            <a href="#neuroplasticity" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">神经可塑性</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 text-gray-500 dark:text-gray-400 text-sm text-center">
+                <p>© 2025 LEOCHAN. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 深色模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+        
+        // 检查系统偏好
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            themeToggleIcon.classList.remove('fa-moon');
+            themeToggleIcon.classList.add('fa-sun');
+        }
+        
+        // 切换按钮点击事件
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            
+            if (document.documentElement.classList.contains('dark')) {
+                themeToggleIcon.classList.remove('fa-moon');
+                themeToggleIcon.classList.add('fa-sun');
+                localStorage.theme = 'dark';
+            } else {
+                themeToggleIcon.classList.remove('fa-sun');
+                themeToggleIcon.classList.add('fa-moon');
+                localStorage.theme = 'light';
+            }
+        });
+        
+        // 滚动动画
+        const sections = document.querySelectorAll('.section-transition');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                } else {
+                    entry.target.style.opacity = 0.8;
+                    entry.target.style.transform = 'translateY(20px)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        sections.forEach(section => {
+            section.style.opacity = 0.8;
+            section.style.transform = 'translateY(20px)';
+            observer.observe(section);
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
