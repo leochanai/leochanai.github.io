@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5G核心网功能概览 | LEOCHAN作品集</title>
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 字体引入 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        // 配置Tailwind主题
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义样式 -->
+    <style type="text/css">
+        /* 基础样式 */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* 滚动动画 */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mermaid图表样式 */
+        .dark .mermaid {
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-200">
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-slate-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-network-wired text-primary-600 dark:text-primary-500 text-2xl"></i>
+                    <span class="font-bold text-xl">5G核心网功能概览</span>
+                </div>
+                
+                <!-- 主导航链接 -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#overview" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 transition-colors duration-200">概述</a>
+                    <a href="#components" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 transition-colors duration-200">功能组件</a>
+                    <a href="#interaction" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 transition-colors duration-200">交互流程</a>
+                    <a href="#differences" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 transition-colors duration-200">5G vs 4G</a>
+                </div>
+                
+                <!-- 深色模式切换 -->
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-slate-800 hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors duration-200">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <!-- 移动菜单按钮 -->
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors duration-200">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- 移动端导航菜单 -->
+            <div id="mobile-menu" class="hidden md:hidden py-2 pb-4 space-y-2 animate-fade-in">
+                <a href="#overview" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200">概述</a>
+                <a href="#components" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200">功能组件</a>
+                <a href="#interaction" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200">交互流程</a>
+                <a href="#differences" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200">5G vs 4G</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <header class="bg-gradient-to-br from-primary-600 to-primary-900 dark:from-primary-800 dark:to-primary-900 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">5G核心网功能详解</h1>
+                <p class="text-xl md:text-2xl opacity-90 mb-8">探索下一代移动通信网络架构的核心组件与设计理念</p>
+                <a href="#overview" class="inline-block bg-white text-primary-700 hover:bg-gray-100 font-medium px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                    开始探索 <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+        <div class="h-16 bg-gradient-to-b from-transparent to-gray-50 dark:to-slate-900"></div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- 概述部分 -->
+        <section id="overview" class="fade-in-section mb-24">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">5G核心网概述</h2>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 md:p-8 mb-8">
+                    <p class="text-lg mb-6 leading-relaxed">5G核心网是通信网络中关键的控制中心，采用了全新的网络架构设计，能够支持多样化的业务场景和应用需求。与传统4G网络相比，5G核心网在架构理念、接口设计和功能颗粒度等方面都有质的飞跃。</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gray-50 dark:bg-slate-700 p-5 rounded-xl">
+                            <h3 class="text-xl font-semibold mb-3 flex items-center">
+                                <i class="fas fa-puzzle-piece text-primary-600 dark:text-primary-500 mr-2"></i>
+                                SBA（基于服务的架构）
+                            </h3>
+                            <p>每个核心网功能实体被视为一个网络功能(NF)，提供若干服务接口。这些服务通过统一的服务总线或服务注册发现机制实现交互，具有低耦合、高灵活的特点。</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-slate-700 p-5 rounded-xl">
+                            <h3 class="text-xl font-semibold mb-3 flex items-center">
+                                <i class="fas fa-arrows-split-up-and-left text-primary-600 dark:text-primary-500 mr-2"></i>
+                                CUPS（控制面与用户面分离）
+                            </h3>
+                            <p>控制面负责处理信令流程、用户会话管理、策略控制等，用户面负责数据包的转发和处理。这样既能提高数据转发效率，也方便对控制面和用户面独立扩容。</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-slate-700 p-5 rounded-xl">
+                            <h3 class="text-xl font-semibold mb-3 flex items-center">
+                                <i class="fas fa-layer-group text-primary-600 dark:text-primary-500 mr-2"></i>
+                                网络切片（Network Slicing）
+                            </h3>
+                            <p>通过专门的网络切片选择功能，使同一物理网络可以承载多种不同类型的业务场景，如自动驾驶需要极低时延的切片，高清视频需要高吞吐的切片等。</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-slate-700 p-5 rounded-xl">
+                            <h3 class="text-xl font-semibold mb-3 flex items-center">
+                                <i class="fas fa-cloud text-primary-600 dark:text-primary-500 mr-2"></i>
+                                云原生与微服务
+                            </h3>
+                            <p>5G核心网全面拥抱虚拟化和容器化部署，许多运营商在数据中心使用Kubernetes等容器编排平台，实现高效弹性扩缩容。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心网功能组件 -->
+        <section id="components" class="fade-in-section mb-24">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">核心网功能组件</h2>
+                
+                <div class="mb-12">
+                    <!-- 网络架构概览图 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 md:p-8 mb-8">
+                        <h3 class="text-2xl font-semibold mb-6 text-center">5G核心网功能架构</h3>
+                        <div class="mermaid text-center">
+                            graph TB
+                            UE[UE<br>终端设备] -->|N1 NAS信令| RAN[RAN<br>无线接入网]
+                            RAN -->|N2 信令| AMF[AMF<br>接入与移动性管理]
+                                RAN -->|N3 用户数据| UPF[UPF<br>用户面功能]
+                            
+                                AMF -->|Namf/Ausf| AUSF[AUSF<br>认证服务器]
+                                AMF -->|Namf/Nsmf| SMF[SMF<br>会话管理]
+                                AMF -->|Namf/Nudm| UDM[UDM<br>统一数据管理]
+                                AMF -->|Namf/Nnssf| NSSF[NSSF<br>网络切片选择]
+                            
+                                SMF -->|N4 信令| UPF[UPF<br>用户面功能]
+                                SMF -->|Nsmf/Npcf| PCF[PCF<br>策略控制]
+                                UPF -->|N6| DN[数据网络<br>Internet/服务]
+                            
+                                %% 服务化接口展示
+                                NRF[NRF<br>网络功能注册与发现] -.->|Nnrf服务注册发现| AMF & SMF & PCF & NEF & UDM & AUSF & NSSF
+                                NEF[NEF<br>网络开放功能] -.->|Nnef API接口| 3RDAPP[第三方应用]
+                            
+                                %% 控制面与用户面标识
+                                classDef control fill:#d1fae5,stroke:#059669,stroke-width:2px;
+                                classDef user fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
+                                classDef service fill:#fef3c7,stroke:#d97706,stroke-width:2px;
+                                classDef external fill:#e5e7eb,stroke:#4b5563,stroke-width:2px;
+                            
+                                class AMF,SMF,PCF,UDM,AUSF,NSSF,NRF,NEF control;
+                                class UPF user;
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 主要组件卡片 -->
+                <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- AMF卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-primary-600 dark:bg-primary-700 p-4 flex items-center">
+                            <i class="fas fa-door-open text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">AMF</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">接入与移动性管理功能</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>负责处理UE的初始接入与注册消息</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>处理UE在不同基站间切换的信令控制</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>与AUSF协同，为用户分配安全上下文</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">如果把5G网络比作火车站，AMF就相当于检票口和调度中心，负责决定乘客从哪里入场、在哪个站台上车。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- SMF卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-primary-600 dark:bg-primary-700 p-4 flex items-center">
+                            <i class="fas fa-sitemap text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">SMF</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">会话管理功能</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>负责UE的会话建立/修改/释放</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>决定UE数据包的路由和QoS参数</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>从PCF获取策略规则并下发给UPF</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">如果把5G网络比作高速公路，SMF就负责为每辆车（用户数据流）分配车道、制定通行规则。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PCF卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-primary-600 dark:bg-primary-700 p-4 flex items-center">
+                            <i class="fas fa-gavel text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">PCF</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">策略控制功能</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>根据用户订阅等因素进行策略管理</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>负责计费控制和策略传递</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>实现网络层面的复杂策略统一</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">PCF就像企业级网管部门中的"IT策略中心"，能够根据用户和业务类型动态下发不同的网络策略。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- UPF卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-blue-600 dark:bg-blue-700 p-4 flex items-center">
+                            <i class="fas fa-exchange-alt text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">UPF</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">用户面功能</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-blue-600 dark:text-blue-500 mt-1 mr-2"></i>
+                                    <span>接收并转发用户数据包</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-blue-600 dark:text-blue-500 mt-1 mr-2"></i>
+                                    <span>根据策略执行QoS和数据包处理</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-blue-600 dark:text-blue-500 mt-1 mr-2"></i>
+                                    <span>实现流量引擎和就近服务锚点</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">UPF就像高速公路上的"收发卡口与立交桥"，是真正让数据在网络中"跑起来"的关键节点。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- UDM卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-primary-600 dark:bg-primary-700 p-4 flex items-center">
+                            <i class="fas fa-database text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">UDM</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">统一数据管理</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>存储用户订阅数据和相关信息</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>管理用户标识和会话上下文关联</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>确保数据可在多地同步，支持跨区域</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">UDM就像一个"中央数据库"，对所有用户的资料、账单、权限等信息进行集中管理。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AUSF卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-primary-600 dark:bg-primary-700 p-4 flex items-center">
+                            <i class="fas fa-shield-alt text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">AUSF</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">认证服务器功能</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>生成用户认证所需的鉴权向量</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>与AMF协作完成安全上下文建立</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                    <span>确保用户身份合法性和安全性</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">AUSF就像银行系统中的"身份验证中心"，核对客户的PIN码或指纹信息是否匹配。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NRF卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-amber-600 dark:bg-amber-700 p-4 flex items-center">
+                            <i class="fas fa-search text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">NRF</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">网络功能注册与发现</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>接收并注册各网络功能实体信息</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>提供服务发现功能和实例列表</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>实现动态负载均衡和就近访问</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">NRF类似于微服务架构中的"服务注册中心"（如Nacos），任何功能要找其他服务时先查询NRF。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NEF卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-amber-600 dark:bg-amber-700 p-4 flex items-center">
+                            <i class="fas fa-plug text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">NEF</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">网络开放功能</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>向第三方应用暴露网络功能接口</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>对外部访问进行鉴权和控制</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>为外部提供统一的网络能力API</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">如果把5G核心网想象成一个庞大的"操作系统"，NEF就是对外的"API网关"。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NSSF卡片 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-amber-600 dark:bg-amber-700 p-4 flex items-center">
+                            <i class="fas fa-layer-group text-white text-xl mr-3"></i>
+                            <h3 class="text-white text-xl font-semibold">NSSF</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium mb-3">网络切片选择功能</p>
+                            <ul class="space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>根据UE需求选择合适的网络切片</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>路由UE到特定切片实例组件</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-amber-600 dark:text-amber-500 mt-1 mr-2"></i>
+                                    <span>实现切片级别的策略下发与更新</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 text-gray-600 dark:text-gray-400">
+                                <p class="italic text-sm">NSSF就像一个"切片分配调度员"，根据客户需求和配置决定应该分配到哪个服务切片。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 交互流程 -->
+        <section id="interaction" class="fade-in-section mb-24">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">核心网交互流程</h2>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 md:p-8 mb-12">
+                    <h3 class="text-2xl font-semibold mb-6">UE注册与会话建立流程</h3>
+                    
+                    <div class="mermaid">
+                        sequenceDiagram
+                            participant UE as 终端设备
+                            participant RAN as 无线接入网
+                            participant AMF as AMF
+                            participant AUSF as AUSF
+                            participant UDM as UDM
+                            participant NSSF as NSSF
+                            participant SMF as SMF
+                            participant PCF as PCF
+                            participant UPF as UPF
+                            
+                            Note over UE,UPF: 用户注册流程
+                            UE->>RAN: 初始接入请求
+                            RAN->>AMF: 转发注册请求
+                            AMF->>AUSF: 鉴权请求
+                            AUSF->>UDM: 获取认证数据
+                            UDM-->>AUSF: 返回认证向量
+                            AUSF-->>AMF: 认证响应
+                            AMF->>NSSF: 切片选择查询
+                            NSSF-->>AMF: 返回切片信息
+                            AMF-->>UE: 注册接受
+                            
+                            Note over UE,UPF: PDU会话建立流程
+                            UE->>AMF: 会话建立请求
+                            AMF->>SMF: 转发会话请求
+                            SMF->>PCF: 获取策略
+                            PCF-->>SMF: 返回策略规则
+                            SMF->>UDM: 获取订阅数据
+                            UDM-->>SMF: 返回用户订阅
+                            SMF->>UPF: 配置会话和QoS
+                            UPF-->>SMF: 会话建立响应
+                            SMF-->>AMF: 会话建立成功
+                            AMF-->>UE: 会话建立接受
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 card-hover">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-sign-in-alt text-primary-600 dark:text-primary-500 mr-2"></i>
+                            UE注册流程
+                        </h3>
+                        <ol class="list-decimal ml-5 space-y-2">
+                            <li>UE通过RAN向网络发送初始接入请求，由AMF接收。</li>
+                            <li>AMF与AUSF、UDM交互，完成用户身份鉴权与安全上下文建立。</li>
+                            <li>AMF根据UE的切片需求与NSSF交互，选择合适的切片。</li>
+                            <li>AMF将注册接受消息发送给UE，完成在5G网络的注册。</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 card-hover">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-network-wired text-primary-600 dark:text-primary-500 mr-2"></i>
+                            PDU会话建立流程
+                        </h3>
+                        <ol class="list-decimal ml-5 space-y-2">
+                            <li>UE发起会话请求，AMF将该请求转发给SMF。</li>
+                            <li>SMF根据策略、PCF配置和UDM提供的订阅数据，选择合适的UPF。</li>
+                            <li>UPF完成隧道建立和QoS配置后反馈给SMF，SMF再通知AMF。</li>
+                            <li>AMF将会话成功信息发送给UE，UE开始数据传输。</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 5G与4G区别 -->
+        <section id="differences" class="fade-in-section mb-16">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">5G与4G核心网的主要区别</h2>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 md:p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-4 text-primary-700 dark:text-primary-500">4G核心网</h3>
+                            <div class="bg-gray-100 dark:bg-slate-700 rounded-xl p-6">
+                                <ul class="space-y-4">
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-gray-500 dark:text-gray-400 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">紧耦合架构</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">主要由MME、SGW、PGW、HSS、PCRF等功能实体构成，各功能内部紧耦合</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-gray-500 dark:text-gray-400 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">部分控制面与用户面分离</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">仅引入部分CUPS概念，控制面和用户面耦合度较高</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-gray-500 dark:text-gray-400 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">有限的差异化服务</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">仅能基于APN等方式提供有限的服务差异化，难以提供"专网级"体验</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-gray-500 dark:text-gray-400 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">虚拟化起步阶段</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">部分采用NFV技术，但容器化和微服务应用较少</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-gray-500 dark:text-gray-400 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">有限的接口开放</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">网络能力开放接口相对较少，与第三方对接不够灵活</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-4 text-primary-700 dark:text-primary-500">5G核心网</h3>
+                            <div class="bg-gray-100 dark:bg-slate-700 rounded-xl p-6">
+                                <ul class="space-y-4">
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-primary-600 dark:text-primary-500 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">功能解耦与服务化</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">将功能拆分为更细粒度的网络功能(NF)，通过基于服务的接口(SBI)实现互通</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-primary-600 dark:text-primary-500 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">控制面与用户面彻底分离</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">UPF专注于用户流量处理，AMF、SMF等运行在控制面，专注信令管理</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-primary-600 dark:text-primary-500 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">网络切片技术</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">同一物理网络可同时运行多个逻辑网络切片，为不同业务场景提供定制化服务</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-primary-600 dark:text-primary-500 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">云原生与微服务</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">采用容器化、微服务等云原生技术，支持弹性扩缩容与高可用性</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-circle text-xs text-primary-600 dark:text-primary-500 mt-1.5 mr-3"></i>
+                                        <div>
+                                            <span class="font-medium">开放接口与生态</span>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">通过NEF等网络开放功能，向第三方提供标准化能力接口</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 bg-gray-50 dark:bg-slate-700 p-6 rounded-xl">
+                        <h4 class="text-lg font-semibold mb-3">总结比较</h4>
+                        <p class="text-gray-700 dark:text-gray-300">简而言之，5G核心网在架构理念、接口设计和功能颗粒度方面都较4G有了质的飞跃。如果把4G核心网比作一台相对"封闭"的专用设备，那么5G核心网就像是一个"开放的云平台"，可以灵活组合和编排各种网络功能。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                    <div class="flex items-center mb-6 md:mb-0">
+                        <i class="fas fa-network-wired text-primary-600 dark:text-primary-500 text-3xl mr-3"></i>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white">5G核心网功能概览</h2>
+                            <p class="text-gray-600 dark:text-gray-400">移动通信网络架构解析</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <a href="https://x.com/leochanai" target="_blank" class="bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 p-3 rounded-full transition-colors duration-200">
+                            <i class="fab fa-twitter text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                        <a href="#" class="bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 p-3 rounded-full transition-colors duration-200">
+                            <i class="fab fa-github text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                        <a href="#" class="bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 p-3 rounded-full transition-colors duration-200">
+                            <i class="fab fa-linkedin text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 dark:border-slate-700 pt-8 text-center">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-semibold mb-2">作者信息</h3>
+                        <p class="text-gray-600 dark:text-gray-400">作者: LIUCHENG</p>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            <a href="https://x.com/leochanai" target="_blank" class="text-primary-600 dark:text-primary-500 hover:underline">Twitter: @leochanai</a>
+                        </p>
+                    </div>
+                    
+                    <p class="text-gray-500 dark:text-gray-500">© 2025 LEOCHAN. 保留所有权利。</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mermaid JS -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    
+    <!-- 主要JavaScript -->
+    <script>
+        // 初始化Mermaid
+        mermaid.initialize({
+            theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default',
+            securityLevel: 'loose',
+            startOnLoad: true
+        });
+        
+        // 深色模式切换
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        // 检查系统偏好和localStorage
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
+        // 主题切换事件
+        themeToggleBtn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+                mermaid.initialize({ theme: 'dark' });
+            } else {
+                localStorage.theme = 'light';
+                mermaid.initialize({ theme: 'default' });
+            }
+            
+            // 重新渲染图表
+            mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        });
+        
+        // 移动端菜单
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 关闭点击菜单项后的移动菜单
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // 滚动动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.fade-in-section');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+            
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
