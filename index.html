@@ -1,42 +1,238 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的网站首页</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEOCHAN</title>
+    <!-- TailwindCSS 通过 CDN 引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        // 配置 Tailwind 主题
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        neutral: {
+                            750: '#313136',
+                            850: '#202024',
+                            950: '#121214',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style type="text/css">
+        /* 自定义样式补充 */
+        .nav-card {
+            transition: all 0.2s ease;
         }
-        .nav-links {
-            list-style: none;
-            padding: 0;
+        
+        .nav-card:hover {
+            transform: translateY(-2px);
         }
-        .nav-links li {
-            margin-bottom: 10px;
+        
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
         }
-        .nav-links a {
-            display: block;
-            padding: 10px 15px;
-            background-color: #f0f0f0;
-            color: #333;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+        
+        /* 懒加载图片占位符 */
+        .lazy-image {
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-        .nav-links a:hover {
-            background-color: #ddd;
+        
+        .lazy-image.loaded {
+            opacity: 1;
+        }
+
+        /* 确保图标在深色模式下可见 */
+        .dark .dark-icon {
+            color: #fff;
         }
     </style>
 </head>
-<body>
-    <h1>欢迎访问我的网站</h1>
-    <p>请选择以下主题：</p>
-    <ul class="nav-links">
-        <li><a href="5G.html">5G 技术</a></li>
-        <li><a href="Cognitive%20Science.html">认知科学</a></li>
-    </ul>
+
+<body class="bg-white dark:bg-neutral-950 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 backdrop-blur-sm bg-white/70 dark:bg-neutral-950/70 border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <!-- Logo/头像占位 -->
+                    <div class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h1 class="text-xl font-semibold">LEOCHAN</h1>
+                </div>
+                
+                <!-- 深色/浅色模式切换 -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-750 transition-colors">
+                    <i id="theme-icon" class="fas fa-moon dark:text-white"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-16">
+        <!-- 欢迎部分 -->
+        <section class="animate-fade-in mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-6 dark:text-white">欢迎访问<span class="text-primary-600 dark:text-primary-400">我的网站</span></h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl">
+                这里是我的个人空间，您可以浏览我关注的技术和研究领域。通过下方导航卡片探索更多内容。
+            </p>
+        </section>
+
+        <!-- 内容导航卡片 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 5G 技术卡片 -->
+            <a href="5G.html" class="nav-card group animate-fade-in" style="animation-delay: 100ms">
+                <div class="h-full p-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-neutral-850 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-lg dark:hover:shadow-primary-900/20 transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 mr-4">
+                            <i class="fas fa-broadcast-tower text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">5G 技术</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">探索下一代移动通信技术，了解 5G 如何改变我们的生活和工作方式。</p>
+                    <div class="mt-4 flex items-center text-primary-600 dark:text-primary-400">
+                        <span>查看详情</span>
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 认知科学卡片 -->
+            <a href="Cognitive%20Science.html" class="nav-card group animate-fade-in" style="animation-delay: 200ms">
+                <div class="h-full p-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-neutral-850 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-lg dark:hover:shadow-primary-900/20 transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 mr-4">
+                            <i class="fas fa-brain text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">认知科学</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">研究人类心智的科学，包括思维、学习、记忆和问题解决等认知过程。</p>
+                    <div class="mt-4 flex items-center text-primary-600 dark:text-primary-400">
+                        <span>查看详情</span>
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="py-8 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-neutral-850">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-gray-600 dark:text-gray-400 mb-4 sm:mb-0">© 2025 LEOCHAN. 保留所有权利.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://x.com/leochanai" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 初始化深色/浅色模式
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        // 检查系统偏好
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        // 主题切换功能
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.theme = 'dark';
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.theme = 'light';
+            }
+        });
+        
+        // 检查本地存储的主题设置
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+        
+        // 图片懒加载
+        document.addEventListener("DOMContentLoaded", function() {
+            const lazyImages = document.querySelectorAll('.lazy-image');
+            
+            if ("IntersectionObserver" in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const image = entry.target;
+                            image.src = image.dataset.src;
+                            image.classList.add('loaded');
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(image => {
+                    imageObserver.observe(image);
+                });
+            } else {
+                // 回退方案
+                lazyImages.forEach(image => {
+                    image.src = image.dataset.src;
+                    image.classList.add('loaded');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
