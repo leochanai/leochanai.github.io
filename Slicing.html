@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5G核心网切片功能 | 技术洞察</title>
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 定制样式 -->
+    <style>
+        :root {
+            --color-primary: #5E6AD2;
+            --color-primary-dark: #4F58B6;
+            --color-bg-light: #ffffff;
+            --color-bg-dark: #1F2128;
+            --color-text-light: #111827;
+            --color-text-dark: #E5E7EB;
+        }
+        
+        .dark {
+            --color-primary: #7C83D7;
+            --color-primary-dark: #6A73C2;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+        
+        .animate-slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.6s ease-in-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <!-- 脚本配置 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'var(--color-primary)',
+                        'primary-dark': 'var(--color-primary-dark)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16zm-1-6h2v2h-2v-2zm0-8h2v6h-2V6z"/>
+                    </svg>
+                    <span class="text-xl font-semibold">技术洞察</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fa-solid fa-sun hidden dark:block text-yellow-400"></i>
+                        <i class="fa-solid fa-moon block dark:hidden text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+        <!-- 标题区域 -->
+        <div class="animate-fade-in mb-12 md:mb-16 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">5G核心网切片功能</h1>
+            <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-3xl mx-auto">
+                被誉为5G网络的"灵魂"之一，为不同行业提供差异化网络资源
+            </p>
+            <div class="mt-6 flex justify-center">
+                <a href="#overview" class="btn-primary bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium flex items-center">
+                    <span>探索详情</span>
+                    <i class="fa-solid fa-chevron-down ml-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- 概述区域 -->
+        <section id="overview" class="mb-16 md:mb-24 animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 lg:p-10">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 flex items-center">
+                    <i class="fa-solid fa-network-wired text-primary mr-3"></i>
+                    网络切片概述
+                </h2>
+                <div class="prose dark:prose-invert max-w-none">
+                    <p class="text-lg mb-6">
+                        5G 核心网切片功能，被誉为 5G 网络的<strong>"灵魂"</strong>之一，能根据不同行业、不同应用的差异化需求，动态地"切"出专属网络资源，从而最大化地发挥 5G 的潜能。
+                    </p>
+                    <p class="mb-6">
+                        在 5G 时代，各行各业对于网络性能、灵活度和安全隔离等方面的要求日益苛刻，仅靠传统的"单一网络"很难覆盖所有垂直领域。因此就需要一种能按需"裁剪"、动态编排的网络架构，这便是"网络切片"。
+                    </p>
+                    
+                    <div class="bg-gray-50 dark:bg-gray-700 p-5 rounded-xl my-8 border-l-4 border-primary">
+                        <h3 class="font-semibold text-lg mb-3">官方定义</h3>
+                        <ul class="space-y-3 list-disc pl-6">
+                            <li>根据 <strong>3GPP</strong> 的定义，网络切片是指通过对物理或虚拟化资源的逻辑划分，为特定应用或用例提供端到端（E2E）网络能力的"独立"实例。</li>
+                            <li><strong>NGMN</strong>（Next Generation Mobile Networks Alliance）也有类似定义，强调网络切片需要提供完整的业务功能，包括接入网（RAN）、传输网和核心网各部分的资源调度与管理。</li>
+                        </ul>
+                    </div>
+                    
+                    <p>
+                        5G 网络切片并不仅仅局限于核心网，而是强调从终端到无线接入网、传输网，再到核心网、云平台的全过程保障。只有具备端到端的切片能力，才能真正给特定业务场景提供一致的服务等级（SLA）。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 应用场景区域 -->
+        <section class="mb-16 md:mb-24 animate-slide-up" style="animation-delay: 0.4s;">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 flex items-center">
+                <i class="fa-solid fa-lightbulb text-primary mr-3"></i>
+                解决的业务需求
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- URLLC 卡片 -->
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                    <div class="h-3 bg-red-500"></div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-bolt text-red-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">超低时延 (URLLC)</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            为需要极低时延通信的场景提供服务，如远程手术、车联网的 V2X 通信等关键业务。
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <span class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded-md mr-2">毫秒级时延</span>
+                            <span class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded-md">高可靠</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- eMBB 卡片 -->
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                    <div class="h-3 bg-blue-500"></div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-video text-blue-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">高带宽 (eMBB)</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            满足大流量、高速率传输需求，适用于4K/8K视频、VR/AR等需要大带宽的应用场景。
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-md mr-2">Gbps级带宽</span>
+                            <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-md">高吞吐量</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- mMTC 卡片 -->
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                    <div class="h-3 bg-green-500"></div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-microchip text-green-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">海量连接 (mMTC)</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            支持物联网场景中的海量设备接入，如智慧城市、智能工厂中的大量传感器连接。
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-md mr-2">百万级连接</span>
+                            <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-md">低功耗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术架构 -->
+        <section class="mb-16 md:mb-24 animate-slide-up" style="animation-delay: 0.6s;">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 flex items-center">
+                <i class="fa-solid fa-layer-group text-primary mr-3"></i>
+                核心技术组件
+            </h2>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <nav class="flex overflow-x-auto" aria-label="Tabs">
+                        <button class="tab-btn px-6 py-4 text-primary border-b-2 border-primary font-medium" data-target="nssf">
+                            NSSF 切片选择
+                        </button>
+                        <button class="tab-btn px-6 py-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium" data-target="snssai">
+                            S-NSSAI 标识
+                        </button>
+                        <button class="tab-btn px-6 py-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium" data-target="upf">
+                            AMF/SMF/UPF 绑定
+                        </button>
+                        <button class="tab-btn px-6 py-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium" data-target="qos">
+                            QoS 与 SLA
+                        </button>
+                    </nav>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                    <!-- NSSF 内容 -->
+                    <div id="nssf-content" class="tab-content block">
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold mb-4">NSSF (Network Slice Selection Function)</h3>
+                                <p class="mb-4">
+                                    <strong>NSSF是5G核心网中专门用于"网络切片选择"的功能模块</strong>。它是一个关键组件，负责确定终端设备应该使用哪个网络切片实例。
+                                </p>
+                                <ul class="space-y-3 list-disc pl-6 text-gray-700 dark:text-gray-300">
+                                    <li>终端（UE）或网络在接入时，会根据业务需求或切片标识将请求发送到 NSSF</li>
+                                    <li>NSSF根据UE的切片服务信息（S-NSSAI）以及策略来决定该用户应关联到哪个切片实例</li>
+                                    <li>将选择结果传递给其他核心网功能（如 AMF）</li>
+                                    <li>可以将 NSSF 理解为"切片的路由器和调度中心"，负责为每个用户找对合适的"切片大门"</li>
+                                </ul>
+                            </div>
+                            <div class="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded-xl p-4">
+                                <svg class="w-full max-w-md" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="20" y="130" width="100" height="40" rx="5" fill="#5E6AD2" />
+                                    <text x="70" y="155" text-anchor="middle" fill="white" font-size="14">UE</text>
+                                    
+                                    <rect x="200" y="130" width="100" height="40" rx="5" fill="#F59E0B" />
+                                    <text x="250" y="155" text-anchor="middle" fill="white" font-size="14">NSSF</text>
+                                    
+                                    <rect x="380" y="70" width="100" height="40" rx="5" fill="#10B981" />
+                                    <text x="430" y="95" text-anchor="middle" fill="white" font-size="14">切片 A</text>
+                                    
+                                    <rect x="380" y="130" width="100" height="40" rx="5" fill="#10B981" />
+                                    <text x="430" y="155" text-anchor="middle" fill="white" font-size="14">切片 B</text>
+                                    
+                                    <rect x="380" y="190" width="100" height="40" rx="5" fill="#10B981" />
+                                    <text x="430" y="215" text-anchor="middle" fill="white" font-size="14">切片 C</text>
+                                    
+                                    <path d="M120 150 L200 150" stroke="#5E6AD2" stroke-width="2" />
+                                    <polygon points="197,145 205,150 197,155" fill="#5E6AD2" />
+                                    
+                                    <path d="M300 150 L360 150 L380 150" stroke="#F59E0B" stroke-width="2" />
+                                    <polygon points="377,145 385,150 377,155" fill="#F59E0B" />
+                                    
+                                    <path d="M300 150 L340 90 L380 90" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4" />
+                                    <polygon points="377,85 385,90 377,95" fill="#F59E0B" />
+                                    
+                                    <path d="M300 150 L340 210 L380 210" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4" />
+                                    <polygon points="377,205 385,210 377,215" fill="#F59E0B" />
+                                    
+                                    <text x="160" y="140" font-size="12" fill="#5E6AD2">请求</text>
+                                    <text x="330" y="140" font-size="12" fill="#F59E0B">选择切片</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- S-NSSAI 内容 -->
+                    <div id="snssai-content" class="tab-content hidden">
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold mb-4">S-NSSAI (Single Network Slice Selection Assistance Information)</h3>
+                                <p class="mb-4">
+                                    <strong>S-NSSAI是5G标准中用于表示单个切片的标识信息</strong>，由两部分组成：
+                                </p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg">
+                                        <h4 class="font-medium text-blue-700 dark:text-blue-300 mb-2">SST (Slice/Service Type)</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">代表切片的服务类型，如eMBB、URLLC、MIoT等</p>
+                                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">值范围：0-255</p>
+                                    </div>
+                                    <div class="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg">
+                                        <h4 class="font-medium text-purple-700 dark:text-purple-300 mb-2">SD (Slice Differentiator)</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">用于区分相同服务类型下的不同网络切片实例</p>
+                                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">值：24比特十六进制数</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    S-NSSAI在5G网络中扮演着"地址标签"的角色，帮助网络识别和路由到正确的切片实例，实现资源的精准分配。
+                                </p>
+                            </div>
+                            <div class="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded-xl p-4">
+                                <div class="w-full max-w-md">
+                                    <div class="border-2 border-gray-300 dark:border-gray-600 rounded-lg p-4 bg-white dark:bg-gray-800">
+                                        <h4 class="text-center font-medium mb-4">S-NSSAI 结构示例</h4>
+                                        <div class="flex mb-6">
+                                            <div class="w-1/3 bg-blue-200 dark:bg-blue-800 p-3 rounded-l-md flex flex-col items-center justify-center">
+                                                <span class="text-blue-800 dark:text-blue-200 font-medium">SST</span>
+                                                <span class="mt-2 text-gray-700 dark:text-gray-300 text-sm">8 bits</span>
+                                            </div>
+                                            <div class="w-2/3 bg-purple-200 dark:bg-purple-800 p-3 rounded-r-md flex flex-col items-center justify-center">
+                                                <span class="text-purple-800 dark:text-purple-200 font-medium">SD (可选)</span>
+                                                <span class="mt-2 text-gray-700 dark:text-gray-300 text-sm">24 bits</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <h4 class="font-medium mb-2">标准SST值:</h4>
+                                        <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
+                                            <li><span class="inline-block w-8 text-center bg-blue-100 dark:bg-blue-900 rounded">1</span> - eMBB (增强移动宽带)</li>
+                                            <li><span class="inline-block w-8 text-center bg-red-100 dark:bg-red-900 rounded">2</span> - URLLC (超可靠低时延通信)</li>
+                                            <li><span class="inline-block w-8 text-center bg-green-100 dark:bg-green-900 rounded">3</span> - MIoT (海量物联网)</li>
+                                            <li><span class="inline-block w-8 text-center bg-yellow-100 dark:bg-yellow-900 rounded">4</span> - V2X (车联网)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AMF/SMF/UPF 内容 -->
+                    <div id="upf-content" class="tab-content hidden">
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold mb-4">AMF/SMF/UPF 与切片的绑定</h3>
+                                <p class="mb-4">
+                                    <strong>切片实例可以对应专用或共享的网络功能</strong>，根据具体业务要求和资源配置灵活调整。
+                                </p>
+                                <div class="space-y-4 mb-6">
+                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                        <h4 class="font-medium mb-2 text-gray-900 dark:text-gray-100">AMF (Access and Mobility Management Function)</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">负责接入和移动性管理，可以服务多个切片或专用于特定切片</p>
+                                    </div>
+                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                        <h4 class="font-medium mb-2 text-gray-900 dark:text-gray-100">SMF (Session Management Function)</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">处理会话管理，通常为每个切片配置专用实例以保证业务隔离</p>
+                                    </div>
+                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                        <h4 class="font-medium mb-2 text-gray-900 dark:text-gray-100">UPF (User Plane Function)</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">处理用户面数据，根据业务类型和QoS要求部署在不同位置</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    当NSSF选择了合适的切片后，AMF会将用户的请求路由到对应的SMF，进而选择合适的UPF，形成完整的业务处理链路。
+                                </p>
+                            </div>
+                            <div class="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded-xl p-4">
+                                <svg class="w-full max-w-md" viewBox="0 0 500 330" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- 切片1 -->
+                                    <rect x="50" y="40" width="400" height="80" rx="5" fill="#E0E7FF" stroke="#6366F1" stroke-width="2" />
+                                    <text x="100" y="70" font-size="14" fill="#4F46E5">切片1 - eMBB</text>
+                                    
+                                    <rect x="180" y="55" width="70" height="50" rx="5" fill="#818CF8" />
+                                    <text x="215" y="85" text-anchor="middle" fill="white" font-size="14">AMF</text>
+                                    
+                                    <rect x="270" y="55" width="70" height="50" rx="5" fill="#6366F1" />
+                                    <text x="305" y="85" text-anchor="middle" fill="white" font-size="14">SMF</text>
+                                    
+                                    <rect x="360" y="55" width="70" height="50" rx="5" fill="#4F46E5" />
+                                    <text x="395" y="85" text-anchor="middle" fill="white" font-size="14">UPF</text>
+                                    
+                                    <!-- 切片2 -->
+                                    <rect x="50" y="140" width="400" height="80" rx="5" fill="#FFE4E6" stroke="#F43F5E" stroke-width="2" />
+                                    <text x="100" y="170" font-size="14" fill="#E11D48">切片2 - URLLC</text>
+                                    
+                                    <rect x="180" y="155" width="70" height="50" rx="5" fill="#FB7185" />
+                                    <text x="215" y="185" text-anchor="middle" fill="white" font-size="14">AMF</text>
+                                    
+                                    <rect x="270" y="155" width="70" height="50" rx="5" fill="#F43F5E" />
+                                    <text x="305" y="185" text-anchor="middle" fill="white" font-size="14">SMF</text>
+                                    
+                                    <rect x="360" y="155" width="70" height="50" rx="5" fill="#E11D48" />
+                                    <text x="395" y="185" text-anchor="middle" fill="white" font-size="14">UPF</text>
+                                    
+                                    <!-- 切片3 -->
+                                    <rect x="50" y="240" width="400" height="80" rx="5" fill="#DCFCE7" stroke="#22C55E" stroke-width="2" />
+                                    <text x="100" y="270" font-size="14" fill="#16A34A">切片3 - MIoT</text>
+                                    
+                                    <rect x="180" y="255" width="70" height="50" rx="5" fill="#4ADE80" />
+                                    <text x="215" y="285" text-anchor="middle" fill="white" font-size="14">AMF</text>
+                                    
+                                    <rect x="270" y="255" width="70" height="50" rx="5" fill="#22C55E" />
+                                    <text x="305" y="285" text-anchor="middle" fill="white" font-size="14">SMF</text>
+                                    
+                                    <rect x="360" y="255" width="70" height="50" rx="5" fill="#16A34A" />
+                                    <text x="395" y="285" text-anchor="middle" fill="white" font-size="14">UPF</text>
+                                    
+                                    <!-- 连接线 -->
+                                    <path d="M250 55 L250 305" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4" />
+                                    <path d="M340 55 L340 305" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4" />
+                                    <path d="M430 55 L430 305" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- QoS与SLA内容 -->
+                    <div id="qos-content" class="tab-content hidden">
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold mb-4">QoS 保证与 SLA</h3>
+                                <p class="mb-4">
+                                    <strong>一旦用户被分配到某个切片，运营商需要确保该切片的QoS和SLA得到执行</strong>，包括时延、带宽、丢包率等关键指标。
+                                </p>
+                                <div class="space-y-4 mb-6">
+                                    <div class="bg-yellow-50 dark:bg-yellow-900/30 p-4 rounded-lg">
+                                        <h4 class="font-medium mb-2 text-yellow-700 dark:text-yellow-300">PCF (Policy Control Function)</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">负责制定并下发网络切片的策略，确保切片资源得到合理分配和使用</p>
+                                    </div>
+                                    <div class="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg">
+                                        <h4 class="font-medium mb-2 text-green-700 dark:text-green-300">网络资源编排器</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">实时监控网络资源使用情况，动态调整资源分配，确保SLA达成</p>
+                                    </div>
+                                    <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg">
+                                        <h4 class="font-medium mb-2 text-blue-700 dark:text-blue-300">QoS 策略执行</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">在数据包转发时确保遵循QoS规则，如优先级处理、带宽保障等</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                    针对不同类型的切片，SLA要求也有所不同：
+                                </p>
+                                <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li><span class="font-medium">eMBB切片</span>：保证高吞吐量（>100Mbps）和一定的时延（<100ms）</li>
+                                    <li><span class="font-medium">URLLC切片</span>：极低时延（<10ms）和极高可靠性（>99.999%）</li>
+                                    <li><span class="font-medium">MIoT切片</span>：支持海量连接（每平方公里>1百万设备）和低功耗</li>
+                                </ul>
+                            </div>
+                            <div class="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded-xl p-4">
+                                <div class="w-full max-w-md">
+                                    <div class="relative overflow-hidden">
+                                        <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow">
+                                            <h4 class="text-center font-medium mb-6">切片SLA监控仪表板</h4>
+                                            
+                                            <!-- eMBB 指标 -->
+                                            <div class="mb-6">
+                                                <div class="flex justify-between items-center mb-1">
+                                                    <span class="text-blue-600 dark:text-blue-400 font-medium">eMBB 带宽</span>
+                                                    <span>120 Mbps</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 80%"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- URLLC 指标 -->
+                                            <div class="mb-6">
+                                                <div class="flex justify-between items-center mb-1">
+                                                    <span class="text-red-600 dark:text-red-400 font-medium">URLLC 时延</span>
+                                                    <span>5 ms</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                                    <div class="bg-red-600 h-2.5 rounded-full" style="width: 95%"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- MIoT 指标 -->
+                                            <div class="mb-6">
+                                                <div class="flex justify-between items-center mb-1">
+                                                    <span class="text-green-600 dark:text-green-400 font-medium">MIoT 连接数</span>
+                                                    <span>560K 设备</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                                    <div class="bg-green-600 h-2.5 rounded-full" style="width: 65%"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- 资源分配 -->
+                                            <div>
+                                                <h5 class="font-medium mb-3 text-center">资源动态分配</h5>
+                                                <div class="flex h-8 rounded-md overflow-hidden">
+                                                    <div class="bg-blue-500 h-full" style="width: 40%"></div>
+                                                    <div class="bg-red-500 h-full" style="width: 35%"></div>
+                                                    <div class="bg-green-500 h-full" style="width: 25%"></div>
+                                                </div>
+                                                <div class="flex justify-between text-xs mt-2">
+                                                    <span>eMBB: 40%</span>
+                                                    <span>URLLC: 35%</span>
+                                                    <span>MIoT: 25%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 三大支柱 -->
+        <section class="mb-16 md:mb-24 animate-slide-up" style="animation-delay: 0.8s;">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 flex items-center">
+                <i class="fa-solid fa-building-columns text-primary mr-3"></i>
+                切片的三大支柱
+            </h2>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="h-2 bg-blue-500"></div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-cubes text-blue-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">资源抽象（基础）</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            在云化、虚拟化环境中，将底层计算、存储、网络等硬件抽象成灵活可调度的"资源池"。
+                        </p>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+                            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                <li>NFV基础设施层</li>
+                                <li>计算虚拟化</li>
+                                <li>网络虚拟化</li>
+                                <li>存储资源池化</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="h-2 bg-purple-500"></div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-sliders text-purple-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">动态编排（核心）</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            借助NFV/SDN/容器编排技术，根据业务需求，自动创建或调整网络功能的实例与配置，并保证QoS。
+                        </p>
+                        <div class="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
+                            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                <li>MANO编排与管理系统</li>
+                                <li>服务链自动化</li>
+                                <li>生命周期管理</li>
+                                <li>容器化部署</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="h-2 bg-green-500"></div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-shield-halved text-green-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">策略控制（保障）</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            借助NSSF、PCF等功能模块，为不同切片配置<strong>独立或差异化</strong>的安全、流量、QoS等策略。
+                        </p>
+                        <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+                            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                <li>PCF策略控制</li>
+                                <li>安全隔离机制</li>
+                                <li>QoS保障体系</li>
+                                <li>SLA监控</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 py-8 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 text-primary mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16zm-1-6h2v2h-2v-2zm0-8h2v6h-2V6z"/>
+                        </svg>
+                        <span class="text-lg font-semibold">技术洞察</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2 text-sm">
+                        深入解析前沿技术，简化复杂概念
+                    </p>
+                </div>
+                <div class="flex flex-col items-center md:items-end">
+                    <div class="mb-4">
+                        <p class="text-gray-700 dark:text-gray-300 font-medium">作者: LEOCHAN</p>
+                        <div class="flex space-x-4 mt-2">
+                            <a href="https://x.com/leochanai" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+                                <i class="fa-brands fa-twitter text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-500 text-sm">
+                        © 2025 LEOCHAN. 保留所有权利。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 p-3 rounded-full bg-primary text-white shadow-lg opacity-0 transition-opacity duration-300 hover:bg-primary-dark">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // 检查系统主题偏好
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.classList.add('dark');
+        }
+        
+        // 切换主题
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+        });
+        
+        // 标签页切换
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有活动状态
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                    btn.classList.add('text-gray-500', 'dark:text-gray-400', 'hover:text-gray-700', 'dark:hover:text-gray-300');
+                });
+                
+                // 隐藏所有内容
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // 激活当前标签
+                button.classList.add('text-primary', 'border-b-2', 'border-primary');
+                button.classList.remove('text-gray-500', 'dark:text-gray-400', 'hover:text-gray-700', 'dark:hover:text-gray-300');
+                
+                // 显示对应内容
+                const targetId = button.dataset.target + '-content';
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+        
+        // 滚动监听
+        window.addEventListener('scroll', () => {
+            const scrollButton = document.getElementById('back-to-top');
+            
+            if (window.scrollY > 300) {
+                scrollButton.classList.remove('opacity-0');
+                scrollButton.classList.add('opacity-100');
+            } else {
+                scrollButton.classList.remove('opacity-100');
+                scrollButton.classList.add('opacity-0');
+            }
+            
+            // 添加滚动动画效果
+            const animateElements = document.querySelectorAll('.animate-slide-up');
+            animateElements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.style.animation = 'slideUp 0.6s ease-in-out forwards';
+                }
+            });
+        });
+        
+        // 回到顶部功能
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 初始显示第一个标签内容
+        document.addEventListener('DOMContentLoaded', () => {
+            // 滚动动画初始化
+            const animateElements = document.querySelectorAll('.animate-slide-up');
+            animateElements.forEach((element, index) => {
+                element.style.animationDelay = `${0.2 + index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
