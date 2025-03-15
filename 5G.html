@@ -851,6 +851,9 @@
                                                 UPF2[专用UPF]
                                             end
                                             
+                                            %% 共享AMF单独绘制
+                                            AMF_shared[共享AMF]
+                                            
                                             subgraph "切片3(mMTC)"
                                                 SMF3[专用SMF]
                                                 UPF3[专用UPF]
@@ -858,15 +861,21 @@
                                             
                                             Slice1 --> AMF1
                                             Slice2 --> AMF2
-                                            Slice3 --> CommonAMF[共享AMF]
+                                            Slice3 --> AMF_shared
+                                            AMF_shared --> SMF3
+                                            AMF_shared --> UPF3
                                             
+                                            %% 定义样式
                                             classDef slice1 fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
                                             classDef slice2 fill:#fee2e2,stroke:#dc2626,stroke-width:2px;
                                             classDef slice3 fill:#d1fae5,stroke:#059669,stroke-width:2px;
+                                            classDef shared fill:#d1fae5,stroke:#059669,stroke-dasharray:5,5,stroke-width:2px;
                                             
                                             class AMF1,SMF1,UPF1 slice1;
                                             class AMF2,SMF2,UPF2 slice2;
                                             class SMF3,UPF3 slice3;
+                                            class AMF_shared shared;
+
                                     </div>
                                 </div>
                             </div>
@@ -963,48 +972,7 @@
                 </div>
             </div>
         </section>
-    </main>
-
-    <!-- 页脚 -->
-    <footer class="bg-gray-100 dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="max-w-5xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                    <div class="flex items-center mb-6 md:mb-0">
-                        <i class="fas fa-network-wired text-primary-600 dark:text-primary-500 text-3xl mr-3"></i>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900 dark:text-white">5G核心网功能概览</h2>
-                            <p class="text-gray-600 dark:text-gray-400">移动通信网络架构解析</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex space-x-4">
-                        <a href="https://x.com/leochanai" target="_blank" class="bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 p-3 rounded-full transition-colors duration-200">
-                            <i class="fab fa-twitter text-gray-700 dark:text-gray-300"></i>
-                        </a>
-                        <a href="#" class="bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 p-3 rounded-full transition-colors duration-200">
-                            <i class="fab fa-github text-gray-700 dark:text-gray-300"></i>
-                        </a>
-                        <a href="#" class="bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 p-3 rounded-full transition-colors duration-200">
-                            <i class="fab fa-linkedin text-gray-700 dark:text-gray-300"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="border-t border-gray-200 dark:border-slate-700 pt-8 text-center">
-                    <div class="mb-4">
-                        <h3 class="text-lg font-semibold mb-2">作者信息</h3>
-                        <p class="text-gray-600 dark:text-gray-400">作者: LIUCHENG</p>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            <a href="https://x.com/leochanai" target="_blank" class="text-primary-600 dark:text-primary-500 hover:underline">Twitter: @leochanai</a>
-                        </p>
-                    </div>
-                    
-                    <p class="text-gray-500 dark:text-gray-500">© 2025 LEOCHAN. 保留所有权利。</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    </main>s
 
     <!-- Mermaid JS -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
