@@ -94,6 +94,7 @@
                     <a href="#components" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 transition-colors duration-200">功能组件</a>
                     <a href="#interaction" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 transition-colors duration-200">交互流程</a>
                     <a href="#differences" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 transition-colors duration-200">5G vs 4G</a>
+                    <a href="#slicing" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 transition-colors duration-200">网络切片</a>
                 </div>
                 
                 <!-- 深色模式切换 -->
@@ -114,6 +115,7 @@
                 <a href="#components" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200">功能组件</a>
                 <a href="#interaction" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200">交互流程</a>
                 <a href="#differences" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200">5G vs 4G</a>
+                <a href="#slicing" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200">网络切片</a>
             </div>
         </div>
     </nav>
@@ -190,29 +192,29 @@
                         <h3 class="text-2xl font-semibold mb-6 text-center">5G核心网功能架构</h3>
                         <div class="mermaid text-center">
                             graph TB
-                            UE[UE<br>终端设备] -->|N1 NAS信令| RAN[RAN<br>无线接入网]
-                            RAN -->|N2 信令| AMF[AMF<br>接入与移动性管理]
+                                UE[终端设备] -->|N1 NAS信令| RAN[无线接入网]
+                                RAN -->|N2 信令| AMF[AMF<br>接入与移动性管理]
                                 RAN -->|N3 用户数据| UPF[UPF<br>用户面功能]
-                            
-                                AMF -->|Namf/Ausf| AUSF[AUSF<br>认证服务器]
+                                
+                                AMF -->|Namf| AUSF[AUSF<br>认证服务器]
                                 AMF -->|Namf/Nsmf| SMF[SMF<br>会话管理]
                                 AMF -->|Namf/Nudm| UDM[UDM<br>统一数据管理]
                                 AMF -->|Namf/Nnssf| NSSF[NSSF<br>网络切片选择]
-                            
+                                
                                 SMF -->|N4 信令| UPF[UPF<br>用户面功能]
                                 SMF -->|Nsmf/Npcf| PCF[PCF<br>策略控制]
                                 UPF -->|N6| DN[数据网络<br>Internet/服务]
-                            
+                                
                                 %% 服务化接口展示
-                                NRF[NRF<br>网络功能注册与发现] -.->|Nnrf服务注册发现| AMF & SMF & PCF & NEF & UDM & AUSF & NSSF
+                                NRF[NRF<br>网络存储功能] -.->|Nnrf服务注册发现| AMF & SMF & PCF & NEF & UDM & AUSF & NSSF
                                 NEF[NEF<br>网络开放功能] -.->|Nnef API接口| 3RDAPP[第三方应用]
-                            
+                                
                                 %% 控制面与用户面标识
                                 classDef control fill:#d1fae5,stroke:#059669,stroke-width:2px;
                                 classDef user fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
                                 classDef service fill:#fef3c7,stroke:#d97706,stroke-width:2px;
                                 classDef external fill:#e5e7eb,stroke:#4b5563,stroke-width:2px;
-                            
+                                
                                 class AMF,SMF,PCF,UDM,AUSF,NSSF,NRF,NEF control;
                                 class UPF user;
                         </div>
@@ -552,7 +554,7 @@
         </section>
         
         <!-- 5G与4G区别 -->
-        <section id="differences" class="fade-in-section mb-16">
+        <section id="differences" class="fade-in-section mb-24">
             <div class="max-w-5xl mx-auto">
                 <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">5G与4G核心网的主要区别</h2>
                 
@@ -652,6 +654,315 @@
                 </div>
             </div>
         </section>
+
+        <!-- 网络切片详解 -->
+        <section id="slicing" class="fade-in-section mb-24">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">切片功能详解</h2>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 md:p-8 mb-12">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">网络切片：5G网络的"灵魂"</h3>
+                        <p class="text-lg mb-6 leading-relaxed">
+                            网络切片被誉为5G网络的"灵魂"之一，能根据不同行业、不同应用的差异化需求，动态地"切"出专属网络资源，从而最大化地发挥5G的潜能。在5G时代，各行各业对网络性能、灵活度和安全隔离等方面的要求日益苛刻，仅靠传统的"单一网络"很难覆盖所有垂直领域。
+                        </p>
+                    </div>
+                    
+                    <!-- 切片定义与概念 -->
+                    <div class="bg-gray-50 dark:bg-slate-700 p-6 rounded-xl mb-10">
+                        <h4 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-book text-primary-600 dark:text-primary-500 mr-2"></i>
+                            网络切片定义
+                        </h4>
+                        <ul class="space-y-3 ml-6">
+                            <li class="flex">
+                                <i class="fas fa-angle-right text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                <p>根据3GPP的定义，<strong>网络切片</strong>是指通过对物理或虚拟化资源的逻辑划分，为特定应用或用例提供端到端（E2E）网络能力的"独立"实例。</p>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-angle-right text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                <p>NGMN（Next Generation Mobile Networks Alliance）也强调网络切片需要提供完整的业务功能，包括接入网（RAN）、传输网和核心网各部分的资源调度与管理。</p>
+                            </li>
+                        </ul> 
+                        <div class="flex justify-center my-8">
+                            <div class="w-full bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm">
+                                <div class="mermaid">
+                                    graph TB
+                                        subgraph "端到端网络切片架构"
+                                            UE[UE终端] -->|接入| RAN[无线接入网切片]
+                                            RAN -->|传输| TN[传输网切片]
+                                            TN -->|核心| CN[核心网切片]
+                                            CN -->|服务| AppServer[应用服务器]
+                                        end
+                                        
+                                        classDef sliceType fill:#f0fdfa,stroke:#14b8a6,stroke-width:2px;
+                                        class slice1,slice2,slice3 sliceType;
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+
+                    <!-- 切片应用场景 -->
+                    <div class="grid md:grid-cols-3 gap-6 mb-10">
+                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 card-hover border-t-4 border-rose-500">
+                            <h4 class="text-lg font-semibold mb-3 flex items-center">
+                                <i class="fas fa-bolt text-rose-500 mr-2"></i>
+                                超低时延(URLLC)
+                            </h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">为需要极致时延保障的业务场景提供专属切片</p>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-rose-500 mt-1 mr-2"></i>
+                                    <span>远程医疗手术控制</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-rose-500 mt-1 mr-2"></i>
+                                    <span>车联网V2X通信</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-rose-500 mt-1 mr-2"></i>
+                                    <span>工业自动化控制</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 card-hover border-t-4 border-blue-500">
+                            <h4 class="text-lg font-semibold mb-3 flex items-center">
+                                <i class="fas fa-tachometer-alt text-blue-500 mr-2"></i>
+                                高带宽(eMBB)
+                            </h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">为大流量应用提供高吞吐量保障的切片</p>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-blue-500 mt-1 mr-2"></i>
+                                    <span>4K/8K超高清视频</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-blue-500 mt-1 mr-2"></i>
+                                    <span>VR/AR沉浸式体验</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-blue-500 mt-1 mr-2"></i>
+                                    <span>云游戏与云XR</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 card-hover border-t-4 border-green-500">
+                            <h4 class="text-lg font-semibold mb-3 flex items-center">
+                                <i class="fas fa-wifi text-green-500 mr-2"></i>
+                                海量连接(mMTC)
+                            </h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">支持海量物联网设备同时接入的切片</p>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>智慧城市传感器网络</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>大规模农业物联网</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>智能电网与公共设施监控</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- 切片核心功能组件 -->
+                    <div class="mb-10">
+                        <h3 class="text-2xl font-semibold mb-6">切片核心功能组件</h3>
+                        
+                        <!-- NSSF详解 -->
+                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden mb-8">
+                            <div class="bg-primary-600 dark:bg-primary-700 p-4 flex items-center">
+                                <i class="fas fa-layer-group text-white text-xl mr-3"></i>
+                                <h4 class="text-white text-xl font-semibold">NSSF详解</h4>
+                            </div>
+                            <div class="p-6">
+                                <p class="mb-4">NSSF（Network Slice Selection Function）是5G核心网中专门用于"网络切片选择"的功能模块。作为切片架构中的关键组件，它充当了切片的"路由器和调度中心"，负责为每个用户找到合适的"切片大门"。</p>
+                                
+                                <div class="grid md:grid-cols-2 gap-6 mb-4">
+                                    <div class="bg-gray-50 dark:bg-slate-700 p-4 rounded-lg">
+                                        <h5 class="font-semibold mb-2">工作原理</h5>
+                                        <ul class="space-y-2 text-sm">
+                                            <li class="flex">
+                                                <i class="fas fa-arrow-right text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                                <span>终端（UE）或网络在接入时，会根据业务需求发送切片请求到NSSF</span>
+                                            </li>
+                                            <li class="flex">
+                                                <i class="fas fa-arrow-right text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                                <span>NSSF根据UE的切片服务信息（S-NSSAI）以及策略决定该用户应关联到哪个切片实例</span>
+                                            </li>
+                                            <li class="flex">
+                                                <i class="fas fa-arrow-right text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                                <span>NSSF将选择结果传递给AMF等其他核心网功能</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 dark:bg-slate-700 p-4 rounded-lg">
+                                        <h5 class="font-semibold mb-2">切片标识：S-NSSAI</h5>
+                                        <ul class="space-y-2 text-sm">
+                                            <li class="flex">
+                                                <i class="fas fa-tag text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                                <span>S-NSSAI（Single Network Slice Selection Assistance Information）是表示单个切片的标识信息</span>
+                                            </li>
+                                            <li class="flex">
+                                                <i class="fas fa-tag text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                                <span>SST（Slice/Service Type）代表切片的服务类型，如eMBB、URLLC、MIoT等</span>
+                                            </li>
+                                            <li class="flex">
+                                                <i class="fas fa-tag text-primary-600 dark:text-primary-500 mt-1 mr-2"></i>
+                                                <span>SD（Slice Differentiator）用于区分相同服务类型下的不同网络切片实例</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AMF/SMF/UPF与切片的绑定 -->
+                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-4">AMF/SMF/UPF与切片的绑定</h4>
+                            <p class="mb-5">当NSSF选择了合适的切片后，AMF会将用户的请求路由到对应的SMF，进而选择合适的UPF。对于不同的切片实例，可以对应一组专门的网络功能或者共享一部分网络功能，这取决于运营商的部署策略及资源可用性。</p>
+                            
+                            <div class="flex justify-center">
+                                <div class="w-full bg-gray-50 dark:bg-slate-700 p-5 rounded-xl">
+                                    <div class="mermaid">
+                                        graph TB
+                                            UE[终端设备] -->|选择| NSSF{NSSF<br>切片选择}
+                                            
+                                            NSSF -->|切片1| Slice1[切片1]
+                                            NSSF -->|切片2| Slice2[切片2]
+                                            NSSF -->|切片3| Slice3[切片3]
+                                            
+                                            subgraph "切片1(eMBB)"
+                                                AMF1[专用AMF]
+                                                SMF1[专用SMF]
+                                                UPF1[专用UPF]
+                                            end
+                                            
+                                            subgraph "切片2(URLLC)"
+                                                AMF2[专用AMF]
+                                                SMF2[专用SMF]
+                                                UPF2[专用UPF]
+                                            end
+                                            
+                                            subgraph "切片3(mMTC)"
+                                                SMF3[专用SMF]
+                                                UPF3[专用UPF]
+                                            end
+                                            
+                                            Slice1 --> AMF1
+                                            Slice2 --> AMF2
+                                            Slice3 --> CommonAMF[共享AMF]
+                                            
+                                            classDef slice1 fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
+                                            classDef slice2 fill:#fee2e2,stroke:#dc2626,stroke-width:2px;
+                                            classDef slice3 fill:#d1fae5,stroke:#059669,stroke-width:2px;
+                                            
+                                            class AMF1,SMF1,UPF1 slice1;
+                                            class AMF2,SMF2,UPF2 slice2;
+                                            class SMF3,UPF3 slice3;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- QoS保证与SLA -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 mb-10">
+                        <h4 class="text-xl font-semibold mb-4">QoS保证与SLA</h4>
+                        <p class="mb-4">一旦用户被分配到某个切片，运营商需要确保该切片的QoS和SLA得到执行，包括时延、带宽、丢包率等指标。在5G核心网内部，通过PCF以及网络资源编排器等策略控制模块，实现切片的策略制定与实施。</p>
+                        
+                        <div class="bg-gray-50 dark:bg-slate-700 p-5 rounded-xl">
+                            <h5 class="font-semibold mb-3">三大切片QoS特征</h5>
+                            <div class="grid md:grid-cols-3 gap-4 text-sm">
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-lg">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-clock text-rose-500 mr-2"></i>
+                                        <span class="font-medium">URLLC切片</span>
+                                    </div>
+                                    <ul class="space-y-1">
+                                        <li>• 端到端时延: &lt;10ms</li>
+                                        <li>• 可靠性: 99.999%</li>
+                                        <li>• 吞吐量: 适中</li>
+                                        <li>• 连接密度: 适中</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-lg">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-tachometer-alt text-blue-500 mr-2"></i>
+                                        <span class="font-medium">eMBB切片</span>
+                                    </div>
+                                    <ul class="space-y-1">
+                                        <li>• 端到端时延: &lt;100ms</li>
+                                        <li>• 可靠性: 99.9%</li>
+                                        <li>• 吞吐量: 高达10Gbps</li>
+                                        <li>• 连接密度: 低</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-slate-800 p-3 rounded-lg">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-wifi text-green-500 mr-2"></i>
+                                        <span class="font-medium">mMTC切片</span>
+                                    </div>
+                                    <ul class="space-y-1">
+                                        <li>• 端到端时延: &lt;1s</li>
+                                        <li>• 可靠性: 99%</li>
+                                        <li>• 吞吐量: 低</li>
+                                        <li>• 连接密度: 100万/km²</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 切片核心原理总结 -->
+                    <div class="bg-primary-50 dark:bg-slate-700 rounded-xl p-6">
+                        <h4 class="text-xl font-semibold mb-4 text-primary-700 dark:text-primary-400">切片核心原理：三大支柱</h4>
+                        <p class="mb-6">总体来看，切片可以归纳为"资源抽象 + 动态编排 + 策略控制"三大支柱的组合：</p>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm">
+                                <div class="text-center mb-4">
+                                    <i class="fas fa-cubes text-3xl text-primary-600 dark:text-primary-500"></i>
+                                    <h5 class="font-semibold mt-2">资源抽象（基础）</h5>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    在云化、虚拟化环境中，将底层计算、存储、网络等硬件抽象成灵活可调度的"资源池"。
+                                </p>
+                            </div>
+                            
+                            <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm">
+                                <div class="text-center mb-4">
+                                    <i class="fas fa-cogs text-3xl text-primary-600 dark:text-primary-500"></i>
+                                    <h5 class="font-semibold mt-2">动态编排（核心）</h5>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    借助NFV/SDN/容器编排技术，根据业务需求，自动创建或调整网络功能的实例与配置，并保证QoS。
+                                </p>
+                            </div>
+                            
+                            <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm">
+                                <div class="text-center mb-4">
+                                    <i class="fas fa-shield-alt text-3xl text-primary-600 dark:text-primary-500"></i>
+                                    <h5 class="font-semibold mt-2">策略控制（保障）</h5>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    借助NSSF、PCF等功能模块，为不同切片配置独立或差异化的安全、流量、QoS等策略。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- 页脚 -->
@@ -683,7 +994,7 @@
                 <div class="border-t border-gray-200 dark:border-slate-700 pt-8 text-center">
                     <div class="mb-4">
                         <h3 class="text-lg font-semibold mb-2">作者信息</h3>
-                        <p class="text-gray-600 dark:text-gray-400">作者: LEOCHAN</p>
+                        <p class="text-gray-600 dark:text-gray-400">作者: LIUCHENG</p>
                         <p class="text-gray-600 dark:text-gray-400">
                             <a href="https://x.com/leochanai" target="_blank" class="text-primary-600 dark:text-primary-500 hover:underline">Twitter: @leochanai</a>
                         </p>
