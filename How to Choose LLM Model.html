@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 工作流：让 7 款顶级模型各显神通</title>
+    <!-- TailwindCSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        // TailwindCSS Configuration
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        /* Custom styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Card hover effects */
+        .tool-card {
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Button effects */
+        .btn-effect {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-effect:hover {
+            transform: scale(1.05);
+        }
+        
+        /* For smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* For lazy loading images */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm fixed w-full z-10 transition-colors duration-300">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-primary-600 dark:text-primary-400">
+                <i class="fas fa-robot mr-2"></i>AI 工作流集成
+            </h1>
+            
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 btn-effect">
+                <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                <i class="fas fa-moon text-blue-300 hidden dark:inline"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 md:pt-32 md:pb-16 px-4 bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
+        <div class="container mx-auto max-w-4xl fade-in">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-center">
+                告别万能 AI 幻想，构建专业工作流
+            </h1>
+            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 text-center mb-8 leading-relaxed">
+                不追求一站式解决方案，让 7 款顶级模型在工作流中各显神通
+            </p>
+            <div class="flex justify-center">
+                <a href="#workflow" class="px-6 py-3 bg-primary-600 text-white rounded-lg shadow-md hover:bg-primary-700 transition duration-300 btn-effect">
+                    <i class="fas fa-arrow-down mr-2"></i>了解完整工作流
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="py-16 px-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+        <div class="container mx-auto max-w-4xl fade-in">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">为什么需要多工具工作流？</h2>
+            <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-sm mb-8">
+                <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                    在过去两年多与各种 AI 工具密切合作的过程中，我逐渐意识到一个关键问题：<span class="font-semibold">没有任何单一的 AI 模型能够完美应对我所有的工作需求</span>。起初，我也曾期待找到那个「一站式」解决方案，但实践告诉我，真正的效率来源于构建一套针对不同任务的专业工具组合。
+                </p>
+                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    大语言模型虽然功能强大，但各有所长，就像我们不会用同一把刀切面包和雕刻，AI 工具同样需要「对症下药」。通过组合不同工具的优势，我希望在每个工作环节都获得最佳体验，同时避开各个模型的短板。
+                </p>
+            </div>
+            
+            <div class="flex justify-center mb-8">
+                <div class="w-20 border-b-2 border-primary-500"></div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-lg text-gray-600 dark:text-gray-400 italic">
+                    "真正的生产力来源于对工具的灵活运用，而非工具本身。"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Section -->
+    <section id="tools" class="py-16 px-4 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center fade-in">专业 AI 工具矩阵</h2>
+            <p class="text-gray-600 dark:text-gray-400 text-center mb-12 fade-in">每款模型各有所长，针对特定任务选择最合适的工具</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gemini 2.0 Pro Card -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden fade-in">
+                    <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-file-alt text-2xl text-blue-500 mr-3"></i>
+                            <h3 class="text-xl font-bold">Gemini 2.0 Pro</h3>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-700 dark:text-gray-300">文本素材处理专家</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            拥有 200M 上下文窗口，擅长处理和分析大量文本资料，一次性接收整个文档并理解其中的关联性。
+                        </p>
+                        <div class="bg-blue-50 dark:bg-gray-700 p-3 rounded-lg">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                <span class="font-semibold">应用场景：</span>分析研究报告、整理会议记录、提取长文档关键信息
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gemini Flash 2.0 Card -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden fade-in">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-file-image text-2xl text-purple-500 mr-3"></i>
+                            <h3 class="text-xl font-bold">Gemini Flash 2.0</h3>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-700 dark:text-gray-300">影印文档提取神器</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            出色的 OCR 能力，能够处理扫描版 PDF 或影印文档，同时具备图像局部编辑功能。
+                        </p>
+                        <div class="bg-purple-50 dark:bg-gray-700 p-3 rounded-lg">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                <span class="font-semibold">应用场景：</span>批量处理扫描版文件、理解文档结构、微调图片元素
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Claude Sonnet 3.7 Card -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden fade-in">
+                    <div class="bg-gradient-to-r from-teal-500 to-emerald-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-pen-fancy text-2xl text-teal-500 mr-3"></i>
+                            <h3 class="text-xl font-bold">Claude Sonnet 3.7</h3>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-700 dark:text-gray-300">结构化写作助手</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            擅长生成结构清晰、逻辑连贯的长篇内容，输出平衡和中肯，避免过度自信的陈述。
+                        </p>
+                        <div class="bg-teal-50 dark:bg-gray-700 p-3 rounded-lg">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                <span class="font-semibold">应用场景：</span>撰写教程、产品评测、内容框架构建、最终润色校对
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GPT-4.5 Card -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden fade-in">
+                    <div class="bg-gradient-to-r from-green-500 to-lime-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-brain text-2xl text-green-500 mr-3"></i>
+                            <h3 class="text-xl font-bold">GPT-4.5</h3>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-700 dark:text-gray-300">创意写作增强器</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            创造力和表达多样性突出，善于为内容增添个性化的表达方式，擅长模仿特定风格或语调。
+                        </p>
+                        <div class="bg-green-50 dark:bg-gray-700 p-3 rounded-lg">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                <span class="font-semibold">应用场景：</span>创意写作、风格多变内容、故事性内容、独特视角呈现
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- o3-mini-high Card -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden fade-in">
+                    <div class="bg-gradient-to-r from-amber-500 to-orange-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-microchip text-2xl text-amber-500 mr-3"></i>
+                            <h3 class="text-xl font-bold">o3-mini-high / QwQ-32B</h3>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-700 dark:text-gray-300">逻辑推理专家</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            在严谨思考和逻辑推导的任务上表现出色，适合处理数据分析或需要步骤化思考的复杂问题。
+                        </p>
+                        <div class="bg-amber-50 dark:bg-gray-700 p-3 rounded-lg">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                <span class="font-semibold">应用场景：</span>产品特性逻辑分析和比较、数据分析、步骤化解决复杂问题
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Flux Pro Ultra Card -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden fade-in">
+                    <div class="bg-gradient-to-r from-pink-500 to-rose-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-images text-2xl text-pink-500 mr-3"></i>
+                            <h3 class="text-xl font-bold">Flux Pro Ultra</h3>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-700 dark:text-gray-300">图像创作引擎</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            在生成高质量、风格多样的图像方面表现出色，特别适合需要艺术性和创意表达的项目。
+                        </p>
+                        <div class="bg-pink-50 dark:bg-gray-700 p-3 rounded-lg">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                <span class="font-semibold">应用场景：</span>创建文章配图、视觉创意设计、艺术性图像生成
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section id="workflow" class="py-16 px-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center fade-in">完整 AI 工作流</h2>
+            <p class="text-gray-600 dark:text-gray-400 text-center mb-12 fade-in">以撰写一篇科技评测文章为例</p>
+            
+            <!-- Workflow Diagram -->
+            <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-sm mb-12 fade-in">
+                <div class="flex flex-col space-y-4">
+                    <!-- Step 1 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-500">
+                            <span class="font-bold">1</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">收集与分析资料</h3>
+                            <p class="text-gray-600 dark:text-gray-400">使用 <span class="font-medium text-blue-500">Gemini 2.0 Pro</span> 收集和分析大量背景资料和技术规格</p>
+                        </div>
+                    </div>
+                    <div class="ml-6 border-l-2 border-gray-200 dark:border-gray-600 h-8"></div>
+                    
+                    <!-- Step 2 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900 text-purple-500">
+                            <span class="font-bold">2</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">提取补充信息</h3>
+                            <p class="text-gray-600 dark:text-gray-400">通过 <span class="font-medium text-purple-500">Gemini Flash 2.0</span> 从 PDF 手册和扫描资料中提取补充信息</p>
+                        </div>
+                    </div>
+                    <div class="ml-6 border-l-2 border-gray-200 dark:border-gray-600 h-8"></div>
+                    
+                    <!-- Step 3 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900 text-amber-500">
+                            <span class="font-bold">3</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">产品特性分析</h3>
+                            <p class="text-gray-600 dark:text-gray-400">利用 <span class="font-medium text-amber-500">o3-mini-high 或 QwQ-32B</span> 对产品特性进行逻辑分析和比较</p>
+                        </div>
+                    </div>
+                    <div class="ml-6 border-l-2 border-gray-200 dark:border-gray-600 h-8"></div>
+                    
+                    <!-- Step 4 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900 text-teal-500">
+                            <span class="font-bold">4</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">内容框架生成</h3>
+                            <p class="text-gray-600 dark:text-gray-400">用 <span class="font-medium text-teal-500">Claude Sonnet 3.7</span> 生成文章框架和主要内容</p>
+                        </div>
+                    </div>
+                    <div class="ml-6 border-l-2 border-gray-200 dark:border-gray-600 h-8"></div>
+                    
+                    <!-- Step 5 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900 text-green-500">
+                            <span class="font-bold">5</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">表达力提升</h3>
+                            <p class="text-gray-600 dark:text-gray-400">通过 <span class="font-medium text-green-500">GPT 4.5</span> 增强文章的表达力和个性化观点</p>
+                        </div>
+                    </div>
+                    <div class="ml-6 border-l-2 border-gray-200 dark:border-gray-600 h-8"></div>
+                    
+                    <!-- Step 6 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-pink-100 dark:bg-pink-900 text-pink-500">
+                            <span class="font-bold">6</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">创建配图</h3>
+                            <p class="text-gray-600 dark:text-gray-400">使用 <span class="font-medium text-pink-500">Flux Pro Ultra</span> 创建文章配图</p>
+                        </div>
+                    </div>
+                    <div class="ml-6 border-l-2 border-gray-200 dark:border-gray-600 h-8"></div>
+                    
+                    <!-- Step 7 -->
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900 text-purple-500">
+                            <span class="font-bold">7</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">图像调整</h3>
+                            <p class="text-gray-600 dark:text-gray-400">借助 <span class="font-medium text-purple-500">Gemini Flash 2.0</span> 调整图片以匹配文章风格</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Three-Stage Creation Process -->
+            <h3 class="text-xl font-bold mb-4 text-center fade-in">三段式创作流程</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+                <!-- Stage 1 -->
+                <div class="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm fade-in">
+                    <div class="text-center mb-3">
+                        <div class="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-800 flex items-center justify-center mx-auto">
+                            <i class="fas fa-sitemap text-teal-500"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-semibold text-center mb-2">第一阶段</h4>
+                    <p class="text-gray-600 dark:text-gray-400 text-center">使用 Claude 生成基础框架和要点</p>
+                </div>
+                
+                <!-- Stage 2 -->
+                <div class="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm fade-in">
+                    <div class="text-center mb-3">
+                        <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-800 flex items-center justify-center mx-auto">
+                            <i class="fas fa-magic text-green-500"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-semibold text-center mb-2">第二阶段</h4>
+                    <p class="text-gray-600 dark:text-gray-400 text-center">使用 GPT-4.5 增添个性化表达方式</p>
+                </div>
+                
+                <!-- Stage 3 -->
+                <div class="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm fade-in">
+                    <div class="text-center mb-3">
+                        <div class="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-800 flex items-center justify-center mx-auto">
+                            <i class="fas fa-check-double text-teal-500"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-semibold text-center mb-2">第三阶段</h4>
+                    <p class="text-gray-600 dark:text-gray-400 text-center">回到 Claude 进行最终润色和校对</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Takeaways Section -->
+    <section class="py-16 px-4 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center fade-in">核心理念</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <!-- Takeaway 1 -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center">
+                            <i class="fas fa-bullseye text-primary-500"></i>
+                        </div>
+                        <h3 class="ml-3 text-lg font-semibold">明确核心任务需求</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        先明确自己的核心任务需求，然后针对性地测试不同工具在这些场景下的表现，最终形成适合自己的工具矩阵。
+                    </p>
+                </div>
+                
+                <!-- Takeaway 2 -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center">
+                            <i class="fas fa-tools text-primary-500"></i>
+                        </div>
+                        <h3 class="ml-3 text-lg font-semibold">工具服务于工作</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        选择那些真正帮助你提升效率和质量的工具，而不是盲目追逐最新最热的产品。工具服务于工作，而非相反。
+                    </p>
+                </div>
+                
+                <!-- Takeaway 3 -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center">
+                            <i class="fas fa-sync-alt text-primary-500"></i>
+                        </div>
+                        <h3 class="ml-3 text-lg font-semibold">持续进化</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        AI 工作流并非一成不变。随着各大模型不断更新迭代，它们的能力边界也在持续重塑。昨天的最佳选择可能不是今天的最优解。
+                    </p>
+                </div>
+                
+                <!-- Takeaway 4 -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center">
+                            <i class="fas fa-cogs text-primary-500"></i>
+                        </div>
+                        <h3 class="ml-3 text-lg font-semibold">灵活组合能力</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        在大模型快速发展的今天，掌握构建个性化工作流的能力，或许比掌握某一特定工具更为重要。真正的生产力来源于对工具的灵活运用。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="text-center fade-in">
+                <a href="#tools" class="inline-block px-6 py-3 bg-primary-600 text-white rounded-lg shadow-md hover:bg-primary-700 transition duration-300 btn-effect">
+                    <i class="fas fa-arrow-up mr-2"></i>回到工具列表
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center">
+                <p class="text-gray-600 dark:text-gray-400 mb-2">
+                    告别万能 AI 幻想，构建专业工作流
+                </p>
+                <p class="text-gray-500 dark:text-gray-500 text-sm">
+                    来源：<a href="https://next.iois.me/digital-explorer-057/" class="text-primary-600 dark:text-primary-400 hover:underline" target="_blank">Digital Explorer057</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial theme based on system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+            
+            // Theme toggle button functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+            });
+            
+            // Lazy loading for images
+            const lazyImages = document.querySelectorAll('.lazy-load');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const image = entry.target;
+                            image.classList.add('loaded');
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(image => {
+                    imageObserver.observe(image);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                lazyImages.forEach(image => {
+                    image.classList.add('loaded');
+                });
+            }
+            
+            // Animation for elements when they enter viewport
+            const animateElements = document.querySelectorAll('.fade-in');
+            
+            if ('IntersectionObserver' in window) {
+                const animationObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                animateElements.forEach(element => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                    animationObserver.observe(element);
+                });
+            } else {
+                // Fallback
+                animateElements.forEach(element => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
